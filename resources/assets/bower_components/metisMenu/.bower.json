@@ -1,5 +1,6 @@
 {
   "name": "metisMenu",
+  "version": "2.0.2",
   "homepage": "https://github.com/onokumus/metisMenu",
   "authors": [
     "onokumus <onokumus@gmail.com>"
@@ -26,25 +27,18 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests",
-    "src",
-    "composer.json",
-    ".tmp",
-    "templates"
+    "tests"
   ],
   "dependencies": {
-    "jquery": "~2.2.4"
+    "jquery": "~2.1.4"
   },
-  "devDependencies": {},
-  "version": "2.7.0",
-  "_release": "2.7.0",
+  "_release": "2.0.2",
   "_resolution": {
     "type": "version",
-    "tag": "v2.7.0",
-    "commit": "412043318ac2cf5c589154d6042d7ac45fffc0be"
+    "tag": "v2.0.2",
+    "commit": "8a254edaa2698951301985ae78cc37c8cd546ad3"
   },
   "_source": "https://github.com/onokumus/metisMenu.git",
-  "_target": "^2.7.0",
-  "_originalSource": "metismenu",
-  "_direct": true
+  "_target": "2.0.2",
+  "_originalSource": "metismenu"
 }

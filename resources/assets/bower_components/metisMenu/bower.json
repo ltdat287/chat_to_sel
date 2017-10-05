@@ -1,5 +1,6 @@
 {
   "name": "metisMenu",
+  "version": "2.0.2",
   "homepage": "https://github.com/onokumus/metisMenu",
   "authors": [
     "onokumus <onokumus@gmail.com>"
@@ -26,14 +27,9 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests",
-    "src",
-    "composer.json",
-    ".tmp",
-    "templates"
+    "tests"
   ],
   "dependencies": {
-    "jquery": "~2.2.4"
-  },
-  "devDependencies": {}
+    "jquery": "~2.1.4"
+  }
 }

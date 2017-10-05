@@ -1,6 +1,6 @@
-module.exports = function(grunt) {
-  'use strict';
+'use strict';
 
+module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
@@ -9,85 +9,39 @@ module.exports = function(grunt) {
       ' * <%= pkg.description %>\n' +
       ' * <%= pkg.homepage %>\n' +
       ' *\n' +
-      ' * Made by <%= pkg.author %>\n' +
+      ' * Made by <%= pkg.author.name %>\n' +
       ' * Under <%= pkg.license %> License\n' +
       ' */\n',
 
-    eslint: {
-      target: ['src/*.js']
+    jshint: {
+      options: {
+        jshintrc: '.jshintrc'
+      },
+      all: [
+        'Gruntfile.js',
+        'src/metisMenu.js'
+      ]
     },
     concat: {
-      dist: {
-        src: ['src/import.js', 'src/metisMenu.js'],
-        dest: '.tmp/metisMenu.js'
-      }
-    },
-    babel: {
-      options: {
-        // presets: ['es2015'],
-        // plugins: ['transform-es2015-modules-umd']
+      plugin: {
+        src: ['src/metisMenu.js'],
+        dest: 'dist/metisMenu.js'
       },
-      dist: {
-        files: {
-          'dist/metisMenu.js': '.tmp/metisMenu.js'
-        }
+      css: {
+        src: ['src/metisMenu.css'],
+        dest: 'dist/metisMenu.css'
       }
     },
     uglify: {
       plugin: {
-        options: {
-            sourceMap: true,
-            sourceMapName: 'dist/metisMenu.js.map'
-        },
-        files: {
-          'dist/metisMenu.min.js': ['dist/metisMenu.js']
-        }
+        src: ['dist/metisMenu.js'],
+        dest: 'dist/metisMenu.min.js'
       }
     },
-    postcss: {
-      dev: {
-        options: {
-          processors: [
-            require('pixrem')(), // add fallbacks for rem units
-            require('autoprefixer')({
-              browsers: [
-                'Android 2.3',
-                'Android >= 4',
-                'Chrome >= 20',
-                'Firefox >= 24',
-                'Explorer >= 8',
-                'iOS >= 6',
-                'Opera >= 12',
-                'Safari >= 6'
-              ]
-            }) // add vendor prefixes
-          ]
-        },
-        files: {
-          'dist/metisMenu.css': ['src/metisMenu.css']
-        }
-      },
-      min: {
-        options: {
-          processors: [
-            require('autoprefixer')({
-              browsers: [
-                'Android 2.3',
-                'Android >= 4',
-                'Chrome >= 20',
-                'Firefox >= 24',
-                'Explorer >= 8',
-                'iOS >= 6',
-                'Opera >= 12',
-                'Safari >= 6'
-              ]
-            }), // add vendor prefixes
-            require('cssnano')
-          ]
-        },
-        files: {
-          'dist/metisMenu.min.css': ['src/metisMenu.css']
-        }
+    cssmin: {
+      menucss: {
+        src: ['src/metisMenu.css'],
+        dest: 'dist/metisMenu.min.css'
       }
     },
     usebanner: {
@@ -106,8 +60,7 @@ module.exports = function(grunt) {
         hostname: 'localhost',
         base: [
           'dist',
-          'test',
-          'bower_components'
+          'test'
         ]
       },
       livereload: {
@@ -119,11 +72,11 @@ module.exports = function(grunt) {
     watch: {
       script: {
         files: ['src/**/*.js'],
-        tasks: ['concat', 'babel', 'uglify', 'usebanner']
+        tasks: ['concat:plugin', 'uglify', 'usebanner']
       },
       style: {
         files: ['src/**/*.css'],
-        tasks: ['postcss', 'usebanner']
+        tasks: ['concat:css', 'cssmin', 'usebanner']
       },
       livereload: {
         options: {
@@ -138,23 +91,21 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-banner');
-  grunt.loadNpmTasks('grunt-postcss');
-  grunt.loadNpmTasks('grunt-babel');
-  grunt.loadNpmTasks('grunt-eslint');
-  grunt.loadNpmTasks('grunt-contrib-concat');
 
-  grunt.registerTask('travis', ['eslint']);
+  grunt.registerTask('travis', ['jshint']);
   grunt.registerTask('serve', ['connect:livereload', 'watch']);
   grunt.registerTask('default', [
-    'eslint',
+    'jshint',
     'concat',
-    'babel',
     'uglify',
-    'postcss',
+    'cssmin',
     'usebanner'
   ]);
 };
