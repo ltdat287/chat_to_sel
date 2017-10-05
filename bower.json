@@ -1,0 +1,27 @@
+{
+  "name": "chat_to_sell",
+  "description": "App for shop can chat to sell product",
+  "main": "",
+  "authors": [
+    "Victor.Dat <datlt@shipandplay.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ltdat287/chat_to_sel",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resources/assets/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "components-bootstrap": "3.3.7",
+    "font-awesome": "fontAwesome#4.7.0",
+    "animate.css": "^3.5.2",
+    "jQuery": "3.1.1",
+    "metisMenu": "metismenu#^2.7.0",
+    "jquery-slimscroll": "slimScroll#^1.3.8",
+    "PACE": "pace-js#^1.0.2"
+  }
+}
