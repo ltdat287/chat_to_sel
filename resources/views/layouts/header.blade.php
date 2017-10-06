@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-
 <head>
 
     <meta charset="utf-8">
@@ -14,5 +11,3 @@
     @yield('custom_css')
 
 </head>
-
-<body class="">

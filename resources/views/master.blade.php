@@ -1,32 +1,40 @@
+<!DOCTYPE html>
+<html>
+
 @include('layouts.header')
 
+<body>
 
 <div id="wrapper">
 
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
-                <li class="nav-header">
-                    <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="{{ asset( 'img/profile_small.jpg' ) }}">
+                @if( \Illuminate\Support\Facades\Auth::check() )
+                    <li class="nav-header">
+                        <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle"
+                                 src="{{ \Illuminate\Support\Facades\Auth::user()->user_detail->avatar }}">
                              </span>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong
-                                            class="font-bold">David Williams</strong>
-                             </span> <span class="text-muted text-xs block">Art Director <b
+                                            class="font-bold">{{ \Illuminate\Support\Facades\Auth::user()->first_name }}</strong>
+                             </span> <span class="text-muted text-xs block">{{ \Illuminate\Support\Facades\Auth::user()->email }}
+                                    <b
                                             class="caret"></b></span> </span> </a>
-                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                            <li><a href="mailbox.html">Mailbox</a></li>
-                            <li class="divider"></li>
-                            <li><a href="login.html">Logout</a></li>
-                        </ul>
-                    </div>
-                    <div class="logo-element">
-                        IN+
-                    </div>
-                </li>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a href="profile.html">Profile</a></li>
+                                <li><a href="contacts.html">Contacts</a></li>
+                                <li><a href="mailbox.html">Mailbox</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ route('logout') }}">Logout</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            IN+
+                        </div>
+                    </li>
+                @endif
 
                 <li>
                     <a href="/"><i class="fa fa-diamond"></i> <span class="nav-label">Dashboard</span></a>
@@ -181,7 +189,7 @@
 
 
                     <li>
-                        <a href="login.html">
+                        <a href="{{ route('logout') }}">
                             <i class="fa fa-sign-out"></i> Log out
                         </a>
                     </li>
@@ -189,24 +197,23 @@
 
             </nav>
         </div>
-        <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-10">
-                <h2>Inventories</h2>
-                <ol class="breadcrumb">
-                    <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li class="active">
-                        <a href="inventories.html">Inventories</a>
-                    </li>
-                </ol>
-            </div>
-            <div class="col-lg-2">
 
+        @yield('content')
+
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2017
             </div>
         </div>
 
-
-@yield('content')
+    </div>
+</div>
 
 @include('layouts.footer')
+
+</body>
+
+</html>
