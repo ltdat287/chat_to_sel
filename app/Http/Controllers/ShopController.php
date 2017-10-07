@@ -68,6 +68,15 @@ class ShopController extends Controller
         // Set products count and type count is zero
         $shop->products_count = 0;
         $shop->types_count = 0;
+
+        // When create new shop for user default is active
+        $shops_active = Shop::where('user_id', $user->id)->where('is_active', 1)->get();
+        foreach ($shops_active as $active) {
+            $active->is_active = 0;
+            $active->save();
+        }
+        $shop->is_active = 1;
+
         $shop->save();
         if ($shop) {
             Session::flash('success', trans('labels.create_shop_success'));

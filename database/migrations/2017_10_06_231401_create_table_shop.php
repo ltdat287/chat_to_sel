@@ -23,6 +23,7 @@ class CreateTableShop extends Migration
             $table->string('landing_image')->nullable();
             $table->integer('products_count')->default(0);
             $table->integer('types_count')->default(0);
+            $table->boolean('is_active')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
