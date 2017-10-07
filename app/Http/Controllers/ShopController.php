@@ -39,7 +39,7 @@ class ShopController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CreateShopRequest $request)
@@ -51,18 +51,18 @@ class ShopController extends Controller
         $data['user_id'] = $user->id;
 
         // Check exists and unique of slug_name
-        if ($request->has('name') && ! empty($request->get('name'))) {
+        if ($request->has('name') && !empty($request->get('name'))) {
             $slug_name = str_slug($request->get('name'));
             $exist = Shop::where('slug_name', $slug_name)->first();
             if ($exist) {
-                return redirect()->back()->withErrors([trans('labels.create_shop_slug_name_error')]);
+                return redirect()->back()->withErrors([trans('labels.shop_slug_name_error')])->withInput();
             }
             $data['slug_name'] = $slug_name;
         }
 
         $shop = Shop::create($data);
         if (empty($shop)) {
-            return redirect()->back()->withErrors([trans('labels.create_shop_error')]);
+            return redirect()->back()->withErrors([trans('labels.create_shop_error')])->withInput();
         }
 
         // Set products count and type count is zero
@@ -79,7 +79,7 @@ class ShopController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -90,30 +90,76 @@ class ShopController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        // Check exist Shop of user login
+        $shop = $this->checkExistShop($id);
+        if (!$shop) {
+            return redirect()->back()->withError([trans('labels.shop_not_found')]);
+        }
+
+        $data['shop'] = $shop;
+
+        return view('shops.edit', $data);
+    }
+
+    /**
+     * @param string $id
+     * @return bool
+     */
+    private function checkExistShop($id = '')
+    {
+        $user = Auth::user();
+        // Check exist Shop of user login
+        $shop = Shop::where('user_id', $user->id)->where('id', $id)->first();
+        if (empty($shop)) {
+            return false;
+        }
+
+        return $shop;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateShopRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        // Check exist Shop of user login
+        $shop = $this->checkExistShop($id);
+        if (!$shop) {
+            return redirect()->back()->withError([trans('labels.shop_not_found')]);
+        }
+
+        // Check duplicate of slug_name of shop
+        if ($request->has('name') && !empty($request->get('name'))) {
+            $slug_name = str_slug($request->get('name'));
+            $exist = Shop::where('slug_name', $slug_name)->where('id', '!=', $id)->first();
+            if ($exist) {
+                return redirect()->back()->withErrors([trans('labels.shop_slug_name_error')])->withInput();
+            }
+            $data['slug_name'] = $slug_name;
+        }
+
+        $shop->update($data);
+        if ($shop) {
+            Session::flash('success', trans('update_shop_success'));
+        }
+
+        return redirect(route('shops.edit', ['id' => $id]));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

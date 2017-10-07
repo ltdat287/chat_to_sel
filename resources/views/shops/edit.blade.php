@@ -33,12 +33,12 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>{{ trans( 'labels.shop_create' ) }}</h5>
+                        <h5>{{ trans( 'labels.shop_edit' ) }}</h5>
                     </div>
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-lg-7">
-                                {{ Form::open(['url' => route('shops.store'), 'method' => 'POST', 'class' => 'form-horizontal']) }}
+                                {{ Form::open(['url' => route('shops.update', ['id' => $shop->id]), 'method' => 'PUT', 'class' => 'form-horizontal']) }}
 
                                     @include('shops.fields')
 
