@@ -17,6 +17,7 @@ class CreateTableShop extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('name');
+            $table->string('slug_name')->unique();
             $table->string('url')->nullable();
             $table->string('avatar')->nullable();
             $table->string('landing_image')->nullable();
