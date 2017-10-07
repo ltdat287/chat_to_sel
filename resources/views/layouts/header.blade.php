@@ -6,6 +6,9 @@
     <title>INSPINIA | Empty Page</title>
 
     <link href="{{ mix( 'css/vendors.css' ) }}" rel="stylesheet">
+
+    @yield('lib_css')
+
     <link href="{{ mix( 'css/app.css' ) }}" rel="stylesheet">
 
     @yield('custom_css')
