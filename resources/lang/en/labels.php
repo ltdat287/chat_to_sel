@@ -30,5 +30,7 @@ return [
     'product_not_found' => 'Product not found !',
     'create_product_error' => 'Create Product error !',
     'create_product_success' => 'Create Product success !',
+    'update_product_error' => 'Update Product error !',
+    'update_product_success' => 'Update Product success !',
 
 ];

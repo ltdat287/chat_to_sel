@@ -38,19 +38,21 @@
                     <div class="ibox-content">
 
                         <div class="row">
-                            {{ Form::open(['url' => route('products.store'), 'method' => 'POST', 'role' => 'form']) }}
+                            {{ Form::open(['url' => route('products.update', [ 'id' => $product->id ]), 'method' => 'PUT', 'role' => 'form']) }}
 
                             @include('products.fields')
 
-                                <div class="col-md-12">
-                                    <div class="hr-line-dashed"></div>
-                                    <div class="form-group">
-                                        <div class="col-lg-6 col-lg-offset-3 text-center">
-                                            <button class="btn btn-white" type="submit">{{ trans( 'labels.cancel' ) }}</button>
-                                            <button class="btn btn-primary" type="submit">{{ trans( 'labels.save' ) }}</button>
-                                        </div>
+                            <div class="col-md-12">
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-lg-6 col-lg-offset-3 text-center">
+                                        <button class="btn btn-white"
+                                                type="submit">{{ trans( 'labels.cancel' ) }}</button>
+                                        <button class="btn btn-primary"
+                                                type="submit">{{ trans( 'labels.save' ) }}</button>
                                     </div>
                                 </div>
+                            </div>
 
                             {{ Form::close() }}
                         </div>
