@@ -2,9 +2,12 @@
 
 namespace App;
 
+use App\Helpers\Helper;
+use App\Models\Shop;
 use App\Models\UserDetail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -16,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'provider', 'provider_id','user_detail_id'
+        'name', 'email', 'password', 'provider', 'provider_id', 'user_detail_id'
     ];
 
     /**
@@ -34,5 +37,20 @@ class User extends Authenticatable
     public function user_detail()
     {
         return $this->belongsTo(UserDetail::class);
+    }
+
+    /**
+     * @return bool|\Illuminate\Database\Eloquent\Model|null|static
+     */
+    public static function getShopActive()
+    {
+        $user = Auth::user();
+        if ($user) {
+            $shop = Shop::where('user_id', $user->id)->where('is_active', Helper::IS_ACTIVE)->first();
+
+            return $shop;
+        }
+
+        return false;
     }
 }

@@ -11,6 +11,8 @@ namespace App\Helpers;
 
 class Helper
 {
+    const IS_ACTIVE = 1;
+
     /**
      * @param string $gender
      * @return int

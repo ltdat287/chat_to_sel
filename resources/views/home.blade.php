@@ -1,6 +1,7 @@
 @extends('master')
 
 @section('content')
+
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
             <h2>Inventories</h2>
@@ -19,6 +20,8 @@
     </div>
 
     <div class="wrapper wrapper-content animated fadeInRight">
+        @include('partials.errors')
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">

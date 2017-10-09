@@ -38,7 +38,8 @@
                     <div class="ibox-content">
 
                         <div class="row">
-                            <form method="get" role="form">
+                            {{ Form::open(['url' => route('products.store'), 'method' => 'POST', 'role' => 'form']) }}
+
                                 <div class="col-md-7 b-r">
 
                                     <div class="form-group">
@@ -59,8 +60,9 @@
                                         <label class="control-label">{{ trans( 'labels.images' ) }}</label>
                                         <div class="btn-group">
                                             <label title="Upload image file" for="inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" name="file" id="inputImage" class="hide" name="images" multiple>
-                                                Upload new image
+                                                <input type="file" accept="image/*" name="images" id="inputImage"
+                                                       class="hide" multiple>
+                                                {{ trans( 'labels.upload_image' ) }}
                                             </label>
                                         </div>
                                     </div>
@@ -95,12 +97,8 @@
                                     <div class="form-group">
                                         <label class="control-label">{{ trans( 'labels.category' ) }}</label>
 
-                                        <select class="form-control m-b" name="category" style="width: 300px;">
-                                            <option>option 1</option>
-                                            <option>option 2</option>
-                                            <option>option 3</option>
-                                            <option>option 4</option>
-                                        </select>
+                                        {{ Form::select('type_id', [ trans( 'labels.select_type_option' ) ] + $types, null, ['class' => 'form-control m-b', 'style' => 'width: 300px;']) }}
+
                                     </div>
                                 </div>
 
@@ -108,12 +106,13 @@
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <div class="col-lg-6 col-lg-offset-3 text-center">
-                                            <button class="btn btn-white" type="submit">Cancel</button>
-                                            <button class="btn btn-primary" type="submit">Save changes</button>
+                                            <button class="btn btn-white" type="submit">{{ trans( 'labels.cancel' ) }}</button>
+                                            <button class="btn btn-primary" type="submit">{{ trans( 'labels.save' ) }}</button>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+
+                            {{ Form::close() }}
                         </div>
                     </div>
 

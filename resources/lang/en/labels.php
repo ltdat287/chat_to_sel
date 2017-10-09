@@ -24,5 +24,11 @@ return [
     'sku' => 'SKU',
     'quantity' => 'Quantity',
     'weight' => 'Weight',
+    'select_type_option' => '-- Select Type --',
+    'upload_image' => 'Upload Image',
+    'user_not_have_shop' => 'User not have shop !',
+    'product_not_found' => 'Product not found !',
+    'create_product_error' => 'Create Product error !',
+    'create_product_success' => 'Create Product success !',
 
 ];

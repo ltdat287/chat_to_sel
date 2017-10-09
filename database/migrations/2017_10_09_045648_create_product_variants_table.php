@@ -20,6 +20,7 @@ class CreateProductVariantsTable extends Migration
             $table->string('sku')->nullable();
             $table->integer('price');
             $table->integer('quantity')->nullable();
+            $table->integer('weight')->nullable();
             $table->boolean('in_stock')->default(0);
             $table->integer('photo_id')->nullable();
             $table->softDeletes();
