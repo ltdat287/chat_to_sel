@@ -17,5 +17,12 @@ return [
     'shop_not_found' => 'Shop not found !',
     'shop_edit' => 'Shop Edit',
     'update_shop_success' => 'Update Shop success !',
+    'description' => 'Description',
+    'category' => 'Category',
+    'images' => 'Images',
+    'price' => 'Price',
+    'sku' => 'SKU',
+    'quantity' => 'Quantity',
+    'weight' => 'Weight',
 
 ];

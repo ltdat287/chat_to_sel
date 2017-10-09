@@ -28,5 +28,6 @@ Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallba
 Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('shops', 'ShopController');
+    Route::resource('products', 'ProductController');
 
 });
